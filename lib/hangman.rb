@@ -24,12 +24,30 @@ def print_word(word, hash)
   puts "\n\nWhat is your guess?"
 end
 
-def receive_guess(hash)
+def receive_guess(word, hash)
   while(true)
     guess = gets.chomp
     guess.downcase!
     if guess.length >1
-      puts "More than one letter entered. Please Try again:"
+      print "You have entered more than one character. Is this a guess attempt for the full word?\n(y/n): "
+      while true
+        ans = gets.chomp
+        ans.downcase!
+        case ans.ord
+          when 'y'.ord
+            if guess == word
+              return word
+            elsif guess.length > 1
+              return guess
+            end
+          when 'n'.ord
+            puts "In that case, Please try again: "
+            break
+          else
+            puts "Not understood. Please type y or n."
+            next
+        end
+      end
       next
     end
     if !((guess.ord >= 'a'.ord and guess.ord <= 'z'.ord))
@@ -44,16 +62,23 @@ end
 
 
 def play_game(word)
-  lives = 5
+  lives = 7
   correct = 0
   puts "Hangman Start!"
-  puts "You have 5 lives to guess the word."
+  puts "You have #{lives} lives to guess the word.\nEnter a letter or guess for the entire word."
   hash = Hash.new(false)
+  puts word
 
   until correct == word.length
     print_word(word, hash)
 
-    guess = receive_guess(hash)
+    guess = receive_guess(word, hash)
+
+    if guess != word and guess.length > 1
+      lives -= 1
+      puts "#{guess} is not the word. You have #{lives} lives left."
+      next
+    end
 
     instances = word.count guess
     if !(instances == 0)
@@ -70,7 +95,7 @@ def play_game(word)
       return
     end
   end
-  puts "You win!"
+  puts "The word was #{word}. You win!"
 end
 
 play_game(pick_word(words))
