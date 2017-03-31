@@ -25,5 +25,6 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="RVM: ruby-2.4.0" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="io-console (v0.4.6, RVM: ruby-2.4.0) [gem]" level="application" />
   </component>
 </module>

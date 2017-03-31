@@ -1,0 +1,4 @@
+--- !ruby/object:Player
+lives: 7
+correct: 7
+score: 10
